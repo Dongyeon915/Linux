@@ -151,7 +151,6 @@ sudo apt-get [명령어]
   download - 현재 디렉토리에 바이너리 패키지를 다운로드합니다
   changelog - 특정 패키지의 변경 사항을 다운로드 및 표시합니다
 ````
-````
 
 # ;을 사용한 명령어 연장
 ````
@@ -219,6 +218,7 @@ sudo passwd -u root : super유저 잠금해제
 ````
 ls -l dong.txt : 사용시 -rw-rw-r-- 1 dong dong 7590  7월  3 16:33 dong.txt 권한 정보 (owner,group,other) 순서
 ````
+--------
 # 권한 설정 chmod(모드)
 ````
 chmod o+x dong.txt : ohter 사용자가 실행가능하게
