@@ -132,6 +132,7 @@ sudo apt-get [명령어]
 
 자주 사용되는 명령어:
 ````
+````
   update - 패키지 목록을 새로 가져옵니다
   upgrade - 업그레이드를 합니다
   install - 새 패키지를 설치합니다 (패키지는 libc6 식으로. libc6.deb 아님)
