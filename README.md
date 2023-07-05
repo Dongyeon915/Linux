@@ -53,6 +53,12 @@ apt-get install git : 깃을 설치하는 명령어 실행시 권한이 없다�
 sudo apt-get install git : 권한을 부여받아 설치가 가능하다.
 ````
 
+# 해당 파일이 어떤 종류의 파일인지 표시
+````
+file /etc/system.conf : conf는 텍스트 파일이므로 아스키 파일로 표시된다.
+
+````
+
 
 # 경로 이동과 현재위치 명령어
 ````
@@ -75,7 +81,26 @@ mv abc.txt /etc/move : abc.txt를 해당 위치로 이동
 mv abc.txt www.txt : abc이름을 www.txt로 변경
 ````
 
-# tial 파일 읽기 (입력받은 파일의 마지막 부분을 출력하는 프로그램)
+# more 텍스트 형식으로 작성된 파일을 페이지 단위로 화면에 출력한다
+space bar를 누르면 앞 b는 뒤
+````
+more /etc/system.conf
+more +10 /etc/system.conf : 10행 부터 출력
+````
+
+# less 텍스트 형식으로 작성된 파일을 페이지 단위로 화면에 출력한다
+````
+less /etc/system.conf
+less +10 /etc/system.conf : 10행 부터 출력
+````
+
+# head 텍스트 형식으로 작성된 파일의 앞10행을 화면에출력 (파일 읽기)
+````
+head /etc/system/user.conf : 해당 파일의 앞 10행을 화면에 출력
+head -3 /etc/system.user.conf : 앞 3행만 화면에 출력
+````
+
+# tial 텍스트 형식으로 작성된 파일의 마지막 10행을 화면에출력 (입력받은 파일의 마지막 부분을 출력하는 프로그램)
 ````
 tail [파일 명] : 마지막10줄을 읽기
 tail -n [라인 수] [파일 명] : 해당 라인수 만큼의 라인 읽기
@@ -88,6 +113,7 @@ tail -f [파일 명] : 파일 모니터링을 하기 위해선 tail 명령어에
 # cat 파일 읽기
 ````
 cat [이름].txt : 파일의 내용을 출력해준다.
+cat a.txt b.txt : a와b의 파일의 내용을 연결해서 보여준다.
 ````
 
 
@@ -105,7 +131,7 @@ ex : ls --help | grap sort | grep access
 
 # 파일,또는 디렉토리 생성
 ````
-mkdir  (이름) : 폴더 생성
+mkdir  (이름) : 폴더 생성 (생성시 현재 위치에서 생성된다)
 mkdir -p (디렉토리)/(디렉토리)/(디렉토리) : 하위 디렉토리가 없다면 순서대로 만들어준다
 touch (이름).txt : 파일을 생성한다.
 ````
@@ -113,6 +139,7 @@ touch (이름).txt : 파일을 생성한다.
 ````
 rm 파일명 : 파일 삭제
 rm -r 디렉토리명 :디렉토리 삭제
+rmdir abc : abc 디렉토리 삭제
 ````
 # 도움말
 ````
@@ -256,9 +283,33 @@ chmod u+x dong.txt : owner 설정시
 chmod g+x dong.txt : group 설정시
 ````
 
-# 그룹 생성
+# 유저(사용자) 추가(비밀번호 변경,속성 변경,삭제)
+````
+adduser dong : dong이라는 유저가 생성
+adduser --uid -0915 dong : dong 사용자를 생성하면서 사용자 ID를 0915로 지정
+adduser --gid 1000 dong : 유저를 생성하면서 그룹 ID가 1000인 그룹에 dong 사용자를 포함시킨다.
+adduser --home /newhome dong : 유저를 생성하면서 홈 디렉토리를 /newhome으로 지정
+adduser --shell /bin/csh dong : 유저를 생성하면서 기본 셸을 /bin/csh로 지정
+````
+````
+passwd dong : 사용자의 비밀번호르 변경
+````
+````
+usermod --shell /bin/csh dong : dong 사용자의 기본 셸을 /bin/csh로 변경
+usermod --groups ubuntu dong : 사용자의 보조 그룹에 buntu 그룹 추가
+````
+````
+userdel dong : 사용자를 삭제 단,홈 디렉터리는 삭제 되지 않음
+userdel -r dong : 사용자를 삭제하며 홈 디렉토리 같이 삭제
+````
+
+
+# 그룹 생성(삭제,수정)
 ````
 groupadd [그룹이름]
+groupadd --gid 2222 dong : dong : 그룹을 생성하며 그룹 id를 2222로 지정
+groupmod -new-name dong dong915 : 그룹을 생성하면서 그룹이름을 dong915로 변경
+groupdel dong : 그룹을 삭제 (해당 그룹을 주요 그룹으로 지정한 사용자가 없어야 한다)
 ````
 
 ---------
