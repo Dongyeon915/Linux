@@ -454,3 +454,34 @@ chmod o-x dong.txt : ohter 사용자가 실행할수 없게
 chmod u+x dong.txt : owner 설정시
 chmod g+x dong.txt : group 설정시
 ````
+
+# 유저(사용자) 추가(비밀번호 변경,속성 변경,삭제)
+````
+adduser dong : dong이라는 유저가 생성
+adduser --uid -0915 dong : dong 사용자를 생성하면서 사용자 ID를 0915로 지정
+adduser --gid 1000 dong : 유저를 생성하면서 그룹 ID가 1000인 그룹에 dong 사용자를 포함시킨다.
+adduser --home /newhome dong : 유저를 생성하면서 홈 디렉토리를 /newhome으로 지정
+adduser --shell /bin/csh dong : 유저를 생성하면서 기본 셸을 /bin/csh로 지정
+````
+````
+passwd dong : 사용자의 비밀번호르 변경
+````
+````
+usermod --shell /bin/csh dong : dong 사용자의 기본 셸을 /bin/csh로 변경
+usermod --groups ubuntu dong : 사용자의 보조 그룹에 buntu 그룹 추가
+````
+````
+userdel dong : 사용자를 삭제 단,홈 디렉터리는 삭제 되지 않음
+userdel -r dong : 사용자를 삭제하며 홈 디렉토리 같이 삭제
+````
+
+
+# 그룹 생성(삭제,수정)
+````
+groupadd [그룹이름]
+groupadd --gid 2222 dong : dong : 그룹을 생성하며 그룹 id를 2222로 지정
+groupmod -new-name dong dong915 : 그룹을 생성하면서 그룹이름을 dong915로 변경
+groupdel dong : 그룹을 삭제 (해당 그룹을 주요 그룹으로 지정한 사용자가 없어야 한다)
+````
+
+---------
