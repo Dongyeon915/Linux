@@ -41,6 +41,10 @@ tar xvfz [파일이름] : 압축해제
 apt-get install git : 깃을 설치하는 명령어 실행시 권한이 없다는 Permission denied 가 발생가능
 sudo apt-get install git : 권한을 부여받아 설치가 가능하다.
 ````
+# ping 사이트가 잘 작동되는지 확인
+````
+ping google.com : ip도 가능
+````
 
 
 # 경로 이동과 현재위치 명령어
@@ -221,6 +225,7 @@ sudo htop : 실행 클릭시 해당 기준으로 정렬이 가능하다.
 top : cpu,메모리 사용률
 ps aux | grep apache : 현재 실행중인 프로세스중 apache를 찾는다.
 sodo kill [PID]      : 해당 PID 프로세스를 종료한다.
+
 ````
 
 ------
