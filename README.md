@@ -76,6 +76,7 @@ cat test01.txt >> test02.txt : 01의 모든내용을 옮겨서 02를 초기화�
 grep [찾고싶은 정보] [파일].txt : 파일의 내용중 찾고 싶은 정보를 표시해준다.
 ex : ls --help | grap sort : help의 대한 정보중 | 파이프 연결을 통해 sort라는 내용을 찾도록 하는 명령어
 ex : ls --help | grap sort | grep access
+grep -H [정보] *.log : 어떠한 파일인지 타이틀을 같이보여준다
 ````
 
 # 파일,또는 디렉토리 생성
