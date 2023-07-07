@@ -21,6 +21,7 @@ whereis 명령어를 사용하면 바이너리 파일의 위치뿐만 아니라 
 
 which : 명령을 사용하면 현재 사용하고 있는 명령어 실행 파일(또는 링크)의 위치를 알 수 있다.
 
+find . -name system.log
 ````
 
 # 파일을 압축,해제 tar
@@ -138,6 +139,10 @@ nano : 파일 편집기를 연다.
 cp *.log testDir : *은 모든 이름의 .log 확장자 파일을 test dir폴더에 저장한다
 ````
 
+# 파일 소유권,권한,변경
+````
+sudo chown [소유자]:[그룹명] [파일명]
+````
 
 # 패키지 매니저 (apt,yum)
 ````
@@ -213,6 +218,7 @@ cp *.log bak 	      : 만약 bak가 있다면 모든 log파일을 bak파일에 �
 ### sudo apt-get install htop : process를 보기 좋은 htop
 sudo htop : 실행 클릭시 해당 기준으로 정렬이 가능하다.
 ````
+top : cpu,메모리 사용률
 ps aux | grep apache : 현재 실행중인 프로세스중 apache를 찾는다.
 sodo kill [PID]      : 해당 PID 프로세스를 종료한다.
 ````
