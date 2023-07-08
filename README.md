@@ -454,10 +454,14 @@ who : 현재 접속중인 사용자를 확인
 ````
 sudo는 super유저의 권한을 실행할때 실행
 su - root : super 유저가 되는 명령어
-exit : 종료 명령어 
+
+
+exit : 종료 명령어
+````
 sudo passwd -u root : super유저 잠금해제
 ````
-----
+````
+
 # 사용자 권한
 ````
 ls -l dong.txt : 사용시 -rw-rw-r-- 1 dong dong 7590  7월  3 16:33 dong.txt 권한 정보 (owner,group,other) 순서
