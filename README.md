@@ -280,4 +280,142 @@ groupmod -new-name dong dong915 : 그룹을 생성하면서 그룹이름을 dong
 groupdel dong : 그룹을 삭제 (해당 그룹을 주요 그룹으로 지정한 사용자가 없어야 한다)
 ````
 
----------
+---------# 하****드디스크 관리: RAID****
+
+# RAID
+
+```
+여러 물리적 디스크를 묶어서 그룹으로 만들어 하나의 논리적인 디스크
+비용 절감,신뢰성 향상,성능 향상의 효과
+논리적 디스크를 LU(Local Unit)이라 한다.
+```
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/484b29a1-1b8f-438f-b938-1c51aecf6bcb/Untitled.png)
+
+# 패리티(Parity)
+
+```
+**데이터를 항상 부가하고 보존하는 것으로, 어느 한 쪽 HDD가 고장난 때에도,
+ 거기서 잃어버린 분의 데이터를 패리티로부터 생성할 수 있다
+패리티는 HDD에 장애가 발생한 뒤에 데이터를 복원하기 위해서 사용되는 부호로
+RAID에 데이터를 쓸 때에 자동적으로 생성됩니다.
+남아 있는 데이터와 패리티를 조합하는 것으로, 데이터를 복구할 수 있습니다**
+```
+
+# RAID
+
+[RAIDとは何か？知っておきたい基礎知識-ELECOM WEB SITE!](https://www.elecom.co.jp.k.gj.hp.transer.com/pickup/column/storage_column/00003/)
+
+```
+Linear RADE : 최소 2개의 하드디스크가 필요,앞 디스크부터 차례로 저장 (공간효율 좋음)
+						(디스크 크기가 다르다면 순차적으로 채워지니 사용성 좋음)
+
+RAID0 : 동시저장으로 저장속도는 빠르지만 하나라도 고장날시 모든 데이터가 사라진다. (중요 데이터 저장X)
+			ex) 김 , 동 , 연 이런식으로 나눠서 저장한다.
+
+RAID1 : 모든 디스크에 데이터를 N개로 복제하여 각 디스크에 저장,두배의 공간효율(공간효율 나쁨)
+한쪽에 데이터가 고장나도 데이터 손실이없다.
+			ex) 김동연,김동연 두개가 저장된다
+
+RAID5 : 1개까지의 고장을 허용하지만 2개가 고장날시 사용불가 (공간효율 X)
+				최소 3개이상의 하드 디스크가 필요하며, 오류 발생시 패리티를 이용해서 데이터를 복구
+
+RAID6 : RAID5와 비슷 2개까지 고장을허용 패리티를 2중으로 생성한다.(공간효율 X)
+				패리티를 2개를 써야하니 최소 4개의 디스크가 필요하다
+```
+
+---
+
+# 실습
+
+# RAID 생성용 하드 만들기
+
+```
+SCSI 0:7은 VM설정으로 8부터 생성된다
+```
+
+![20230710_181522.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/79f73033-d8d4-43d7-a545-f0e0bb22b764/20230710_181522.png)
+
+# 확인
+
+![20230710_181712.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/83dc2354-9f8e-4a04-b38c-a6ad8014bf05/20230710_181712.png)
+
+```
+모든 sd확인
+```
+
+# 그 후 파티션 생성 순서대로 진행
+
+![20230710_182338.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7030ef62-e818-4861-bdfe-69ab77c9e016/20230710_182338.png)
+
+타입을 변경해 줘야한다.
+
+![20230710_182443.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6964a85f-6f80-425b-b9b0-828c01db657d/20230710_182443.png)
+
+L 명령어로 타입 종류 확인가능
+
+fd 명령어로 타입을 Linux raid auto설정 
+
+![20230710_183440.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1722c116-0458-4885-b4a0-752d1996e174/20230710_183440.png)
+
+정상적으로 파티션 작업이 끝나면 끝에1로 나눠진걸 확인
+
+```
+sudo fdisk -l /dev/sdj 명령어로 설정값을 다시 확인 가능
+```
+
+![20230710_184214.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/40090201-6fb4-4fa0-88ab-5ceca291cf6b/20230710_184214.png)
+
+## mdadm
+
+```
+처음 디스크를 만드는 방법에서 마찬가지로 두가지 디스크를 하나의 RAID로 합치는 명령어
+초기에 없으므로 설치해줘야한다.
+원칙상 /dev/md[숫자]로 만들어주는게 좋다.
+```
+
+## mdadm --create /dev/md9 --level=linear --raid-devices=2 /dev/sdd1 /dev/sde1
+
+```
+ 원칙상 /dev/md[숫자]로 만들어주는게 좋다.
+mdadm을 create만든다 /dev/md1이라는 곳에 linear을 만든다 raid 장치는 2개를 사용한다 
+그장치는 sdb1,sdb2이다
+```
+
+## 확인
+
+```
+mdadm --detail --scan
+```
+
+![20230710_202750.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/53556a35-1a03-469a-96ef-0f8aa779a6d8/20230710_202750.png)
+
+## mkfs.ext4 [포맷장소] 명령어 포맷작업
+
+```
+ex) mkfs.ext4 /dev/md9
+```
+
+## 디렉토리 생성후 마운트
+
+**raidLinear** 디렉토리로 마운트했다. **(본인경로에 파일이 자동완성되는지 잘 확인)**
+
+![20230710_203607.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f67ee7c4-7dd0-4cc8-9393-531184cba30b/20230710_203607.png)
+
+---
+
+# 정상적으로 합쳐진 장치확인
+
+```
+mdam --detail /dev/md9
+```
+
+![20230710_203916.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b4a4c69c-1bbb-4df8-bf58-487a72bd478e/20230710_203916.png)
+
+완료 후  fstab설정 하기
+
+---
+
+# 다른 RAID 생성시
+
+생성 레이드 명령어만 변경 후 나머지 내용은 위 방법으로 생성하면된다.
